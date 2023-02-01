@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Student.DataInterface\Student.DataInterface.csproj" />
+    <ProjectReference Include="..\student.domain.lib\student.domain.lib.csproj" />
+    <ProjectReference Include="..\Student.serviceInterFace\Student.serviceInterFace.csproj" />
+  </ItemGroup>
+
 </Project>

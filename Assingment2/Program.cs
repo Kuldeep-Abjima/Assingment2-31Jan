@@ -9,6 +9,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCustomDatabase(builder.Configuration);
+builder.Services.AddCustomMapper();
+builder.Services.AddCustomAssimblies();
+
 var app = builder.Build();
 
 
