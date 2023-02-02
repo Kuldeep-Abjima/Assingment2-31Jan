@@ -3,11 +3,6 @@ using Student.DataInterface;
 using Student.Model;
 using StudentServices.Infrastructure.Builder.Interface;
 using StudentServices.Infrastructure.Handlers.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentServices.Infrastructure.Handlers
 {
