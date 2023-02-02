@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace student.domain.lib
 {
-    
+
     public class StudentDto
     {
         [Key]

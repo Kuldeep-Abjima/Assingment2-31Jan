@@ -47,7 +47,6 @@ namespace Assingment2
                 .WithScopedLifetime());
             services.AddTransient<StudentModel>();
             return services;
-
         }
     }
 }

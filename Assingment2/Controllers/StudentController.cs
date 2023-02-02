@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Assingment2.Response;
 using Microsoft.AspNetCore.Mvc;
 using Student.Model;
-using StudentServices.Infrastructure.Handlers;
 using StudentServices.Infrastructure.Handlers.Interface;
 
 namespace Assingment2.Controllers
@@ -18,68 +17,98 @@ namespace Assingment2.Controllers
             _logger = logger;
             _studentHandler = studentHandler;
         }
+        [HttpPost]
+        [Route("[Controller]Add")]
+        public async Task<responseWrapper<bool>> Add(StudentModel studentModel)
+        {
+            var response = new responseWrapper<bool>();
+            try
+            {
+                var result = await _studentHandler.HandleStudentAddAsync(studentModel);
+                response.Set(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Student/CreateStudent");
+                response.Set(ex);
+            }
+            return response;
+
+        }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [Route("[Controller]GetAll")]
+        public async Task<responseWrapper<List<StudentModel>>> GetAll()
         {
-            var result = await _studentHandler.HandleStudentGetAll();
-            if (result == null)
+            var respo = new responseWrapper<List<StudentModel>>();
+            try
             {
-                return NotFound();
+                var result = await _studentHandler.HandleStudentGetAll();
+                respo.Set(result);
             }
-            else
+            catch(Exception ex)
             {
-                return Ok(result);
-
+                _logger.LogError(ex, "Student/GetAll");
+                respo.Set(ex);
             }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByID([FromRoute]int id)
-        {
-            var result = await _studentHandler.HandleStudentGetById(id);
-            if(result == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Ok(result);
-            }
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateStudent(StudentModel studentModel)
-        {
-            var result = await _studentHandler.HandleStudentAddAsync(studentModel);
-
-            return Ok(result);
+            return respo;
             
-            //if(result == true) 
-            //{
-            //    return Ok("Added Successfullt");
-            //}
-            //else
-            //{
-            //    return BadRequest();
-            //}
+        }
+
+        [HttpGet]
+        [Route("[Controller]GetById/{id}")]
+        public async Task<responseWrapper<StudentModel>> GetByID(int id)
+        {
+            var response = new responseWrapper<StudentModel>();
+            try
+            {
+                var result = await _studentHandler.HandleStudentGetById(id);
+                response.Set(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, $"Student/GetById:data .{id}");
+                response.Set(ex);
+            }
+            return response;
+
+
+        }
+
+        [HttpPut]
+        [Route("[Controller]Update/{id}")]
+        public async Task<responseWrapper<bool>> Update(int id, StudentModel studentModel)
+        {
+            var response = new responseWrapper<bool>();
+            try
+            {
+                var result = await _studentHandler.HandleStudentUpdateAsync(id, studentModel);
+                response.Set(result);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Student/updateStudent");
+                response.Set(ex);
+            }
+          
+            return response;
         }
         [HttpDelete]
-        public async Task<IActionResult> DeleteStudent(int id)
+        [Route("[Controller]Delete")]
+        public async Task<responseWrapper<bool>> Delete(int id)
         {
-            var result = await _studentHandler.HandleStudentDeleteAsync(id);
-            return Ok(result);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStudent([FromRoute]int id, [FromBody] StudentModel studentModel)
-        {
-            var result = await _studentHandler.HandleStudentUpdateAsync(id, studentModel);
-            //if(result == null || )
-            //{
-            //    await _studentHandler.HandleStudentAddAsync(studentModel);
-            //    return Ok(result);
-            //}
-            return Ok(result);
+            var response = new responseWrapper<bool>();
+            try
+            {
+                var result = await _studentHandler.HandleStudentDeleteAsync(id);
+                response.Set(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "student/deleteStudent");
+                response.Set(ex);
+            }
+            return response;
         }
 
     }

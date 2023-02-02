@@ -1,14 +1,8 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Logging;
-using Microsoft.SqlServer.Management.SqlParser.MetadataProvider;
 using student.domain.lib;
 using Student.DataInterface;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Student.Data
 {

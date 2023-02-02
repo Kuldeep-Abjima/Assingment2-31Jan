@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Student.DataInterface;
 using System.Data;
 using System.Data.SqlClient;

@@ -1,4 +1,5 @@
-﻿using Student.DataInterface;
+﻿using Microsoft.Extensions.Logging;
+using Student.DataInterface;
 using Student.Model;
 using StudentServices.Infrastructure.Builder.Interface;
 using StudentServices.Infrastructure.Handlers.Interface;
@@ -14,12 +15,14 @@ namespace StudentServices.Infrastructure.Handlers
     {
         private readonly IStudentBuilder _studentBuilder;
         private readonly IStudentRepository _studentRepository;
+        private readonly ILogger<StudentHandler> _logger;
 
-        public StudentHandler(IStudentBuilder studentBuilder, IStudentRepository studentRepository) 
+        public StudentHandler(IStudentBuilder studentBuilder, IStudentRepository studentRepository,ILogger<StudentHandler> logger) 
         
         {
             _studentBuilder = studentBuilder;
             _studentRepository = studentRepository;
+            _logger = logger;
         }
         public async Task<bool> HandleStudentAddAsync(StudentModel studentModel)
         {
@@ -51,8 +54,18 @@ namespace StudentServices.Infrastructure.Handlers
 
         public async Task<bool> HandleStudentUpdateAsync(int id, StudentModel studentModel)
         {
+
             var dto = _studentBuilder.Build(studentModel);
-            return await _studentRepository.UpdateStudent(id,dto);
+            var st = await _studentRepository.GetStudentByID(id);
+            if (st != null)
+            {
+                    return await _studentRepository.UpdateStudent(st.Id, dto);
+            }
+            else
+            {
+                _logger.LogError("Student data not found");
+                return false;
+            }
         }
     }
 }
