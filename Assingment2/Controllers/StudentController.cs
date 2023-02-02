@@ -19,9 +19,9 @@ namespace Assingment2.Controllers
         }
         [HttpPost]
         [Route("[Controller]Add")]
-        public async Task<responseWrapper<bool>> Add(StudentModel studentModel)
+        public async Task<ResponseWrapper<bool>> Add(StudentModel studentModel)
         {
-            var response = new responseWrapper<bool>();
+            var response = new ResponseWrapper<bool>();
             try
             {
                 var result = await _studentHandler.HandleStudentAddAsync(studentModel);
@@ -38,9 +38,9 @@ namespace Assingment2.Controllers
 
         [HttpGet]
         [Route("[Controller]GetAll")]
-        public async Task<responseWrapper<List<StudentModel>>> GetAll()
+        public async Task<ResponseWrapper<List<StudentModel>>> GetAll()
         {
-            var respo = new responseWrapper<List<StudentModel>>();
+            var respo = new ResponseWrapper<List<StudentModel>>();
             try
             {
                 var result = await _studentHandler.HandleStudentGetAll();
@@ -57,9 +57,9 @@ namespace Assingment2.Controllers
 
         [HttpGet]
         [Route("[Controller]GetById/{id}")]
-        public async Task<responseWrapper<StudentModel>> GetByID(int id)
+        public async Task<ResponseWrapper<StudentModel>> GetByID(int id)
         {
-            var response = new responseWrapper<StudentModel>();
+            var response = new ResponseWrapper<StudentModel>();
             try
             {
                 var result = await _studentHandler.HandleStudentGetById(id);
@@ -77,9 +77,9 @@ namespace Assingment2.Controllers
 
         [HttpPut]
         [Route("[Controller]Update/{id}")]
-        public async Task<responseWrapper<bool>> Update(int id, StudentModel studentModel)
+        public async Task<ResponseWrapper<bool>> Update(int id, StudentModel studentModel)
         {
-            var response = new responseWrapper<bool>();
+            var response = new ResponseWrapper<bool>();
             try
             {
                 var result = await _studentHandler.HandleStudentUpdateAsync(id, studentModel);
@@ -95,9 +95,9 @@ namespace Assingment2.Controllers
         }
         [HttpDelete]
         [Route("[Controller]Delete")]
-        public async Task<responseWrapper<bool>> Delete(int id)
+        public async Task<ResponseWrapper<bool>> Delete(int id)
         {
-            var response = new responseWrapper<bool>();
+            var response = new ResponseWrapper<bool>();
             try
             {
                 var result = await _studentHandler.HandleStudentDeleteAsync(id);

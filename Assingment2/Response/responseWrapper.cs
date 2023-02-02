@@ -1,6 +1,6 @@
 ﻿namespace Assingment2.Response
 {
-    public class responseWrapper<T>
+    public class ResponseWrapper<T>
     {
 
         public bool IsError { get; set; }
@@ -8,17 +8,17 @@
         public string Message { get; set; }
         public T Result { get; set; }
 
-        public responseWrapper() 
+        public ResponseWrapper() 
         { 
         
         
         
         }
-        public responseWrapper(T result)
+        public ResponseWrapper(T result)
         {
            Result= result;
         }
-        public responseWrapper(Exception exception)
+        public ResponseWrapper(Exception exception)
         {
             IsError = true;
             ErrorMessage = exception?.Message;
